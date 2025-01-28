@@ -10,10 +10,21 @@
     </script>
   <script>
     function roll() {
-      const array = new Uint32Array(1);
+      const array = new Uint8Array(1);
+
       crypto.getRandomValues(array);
 
-      return array[0] % 6 + 1;
+      // Get the lower 4 bits (0-15)
+      const randomValue = array[0] & 0x0F;
+
+      if (randomValue < 6) {
+        // Return 1-6
+        return randomValue + 1;
+      } else {
+        console.log('reroll');
+        // Reroll if the value is 6-15
+        return roll();
+      }
     }
 
     $(function () {
