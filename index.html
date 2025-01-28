@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Macháček</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+  <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+    integrity="sha384-5AkRS45j4ukf+JbWAfHL8P4onPA9p0KwwP7pUdjSQA3ss9edbJUJc/XcYAiheSSz" crossorigin="anonymous">
+    </script>
+</head>
+
+<body>
+  <div id="new-game">
+    <button id="btn-play">hrát</button>
+  </div>
+
+  <div id="roller">
+    <div id="dice">
+      <p id="die1">k1</p>
+      <p id="die2">k2</p>
+    </div>
+    <button id="btn-roll">hodit</button>
+    <button id="btn-hide">schovat</button>
+  </div>
+
+  <div id="guesser">
+    <button id="btn-trust">věřit</button>
+    <button id="btn-doubt">nevěřit</button>
+  </div>
+</body>
+
+<script>
+  function roll() {
+    const array = new Uint32Array(1);
+    crypto.getRandomValues(array);
+
+    return array[0] % 6 + 1;
+  }
+
+  $('#new-game').show();
+  $('#guesser').hide();
+  $('#roller').hide();
+
+  $('#btn-play').on('click', function (event) {
+    $('#new-game').hide();
+
+    $('#die1').text('0');
+    $('#die2').text('0');
+    $('#btn-roll').show();
+    $('#btn-hide').hide();
+
+    $('#roller').show();
+    $('#guesser').hide();
+
+
+    $('#roller').show();
+  });
+
+  $('#btn-roll').on('click', function (event) {
+    $('#die1').text(roll());
+    $('#die2').text(roll());
+    $('#btn-roll').hide();
+    $('#btn-hide').show();
+  });
+
+  $('#btn-hide').on('click', function (event) {
+    $('#roller').hide();
+    $('#guesser').show();
+  });
+
+  $('#btn-trust').on('click', function (event) {
+    $('#guesser').hide();
+    $('#die1').text('0');
+    $('#die2').text('0');
+    $('#btn-roll').show();
+    $('#btn-hide').hide();
+
+    $('#roller').show();
+  });
+
+  $('#btn-doubt').on('click', function (event) {
+    $('#guesser').hide();
+    $('#roller').show();
+    $('#btn-hide').hide();
+
+    $('#new-game').show();
+  });
+</script>
+
+</html>
