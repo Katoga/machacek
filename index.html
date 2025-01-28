@@ -4,7 +4,13 @@
 <head>
   <title>Macháček</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+
+  <style type="text/css" media="screen">
+    .largeDie {
+      font-size: 4rem;
+    }
+  </style>
+
   <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
     integrity="sha384-5AkRS45j4ukf+JbWAfHL8P4onPA9p0KwwP7pUdjSQA3ss9edbJUJc/XcYAiheSSz" crossorigin="anonymous">
     </script>
@@ -27,6 +33,16 @@
       }
     }
 
+    dieFaces = [
+      '',
+      '⚀',
+      '⚁',
+      '⚂',
+      '⚃',
+      '⚄',
+      '⚅',
+    ]
+
     $(function () {
       $('#new-game').show();
       $('#guesser').hide();
@@ -35,8 +51,8 @@
       $('#btn-play').on('click', function (event) {
         $('#new-game').hide();
 
-        $('#die1').text('0');
-        $('#die2').text('0');
+        $('#die1').text('').removeClass('largeDie');
+        $('#die2').text('').removeClass('largeDie');
         $('#btn-roll').show();
         $('#btn-hide').hide();
 
@@ -48,8 +64,8 @@
       });
 
       $('#btn-roll').on('click', function (event) {
-        $('#die1').text(roll());
-        $('#die2').text(roll());
+        $('#die1').text(dieFaces[roll()]).addClass('largeDie');
+        $('#die2').text(dieFaces[roll()]).addClass('largeDie');
         $('#btn-roll').hide();
         $('#btn-hide').show();
       });
@@ -61,8 +77,8 @@
 
       $('#btn-trust').on('click', function (event) {
         $('#guesser').hide();
-        $('#die1').text('0');
-        $('#die2').text('0');
+        $('#die1').text('').removeClass('largeDie');
+        $('#die2').text('').removeClass('largeDie');
         $('#btn-roll').show();
         $('#btn-hide').hide();
 
@@ -90,8 +106,8 @@
     <button id="btn-roll">hodit</button>
     <button id="btn-hide">schovat</button>
     <div id="dice">
-      <p id="die1">k1</p>
-      <p id="die2">k2</p>
+      <span id="die1">k1</span>
+      <span id="die2">k2</span>
     </div>
   </div>
 
